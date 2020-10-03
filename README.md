@@ -1,9 +1,9 @@
 ## prerequisite
 
-[nodejs](https://nodejs.org/en/download/)
-[Laravel] (https://laravel.com)
-PHP V7.3+ 
-composer
+- [nodejs](https://nodejs.org/en/download/)
+- [Laravel] (https://laravel.com)
+- PHP V7.3+ 
+- composer
 
 
 ## Installation
