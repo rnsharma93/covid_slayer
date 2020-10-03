@@ -7,6 +7,9 @@ use Tymon\JWTAuth\Exceptions\JWTException;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
+
 class UserController extends Controller {
 
 	public function addUser(Request $request) {
@@ -126,8 +129,11 @@ class UserController extends Controller {
 		$game_id = app('db')->table('history')->insertGetId($insert_data);
 		
 		if(!empty($logs)) {
+			$fileLog = new Logger('Game');
+			$fileLog->pushHandler((new StreamHandler(storage_path('logs/Game'.$game_id.".log")))->setFormatter(new \Monolog\Formatter\LineFormatter(null, null, true, true)));
 			foreach($logs as $log) {
 				app('db')->table('log')->insert(['game_id'=>$game_id,'user_id'=>$user_id,'description'=>$log]);
+				$fileLog->info($log,[]);
 			}
 		}
 		
